@@ -58,7 +58,7 @@ hex = [(0,0),
        (5,13.6),
        (1,30)]
   
--- Approaches π as n grows.
+-- Approaches Ï€ as n grows.
 circle :: Polygon
 circle = makeCircle 1 1000
   

@@ -22,7 +22,13 @@ data Piece =
 
 isLegalPosition :: Position -> Bool
 -- implement isLegalPosition
-isLegalPosition _ = True 
+isLegalPosition _ = False
+isLegalPosition (a,b) = (isLegalFile && isLegalRank) 
+isLegalPosition (_,_) = False
+
+isLegalRank :: Char -> Bool
+
+isLegalFile :: Int -> Bool
 
 -- see Rules - Movement for legal movements 
 
