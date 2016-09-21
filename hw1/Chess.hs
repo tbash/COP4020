@@ -1,5 +1,8 @@
 module Chess where
 
+import Data.Char
+
+
 -- See https://en.wikipedia.org/wiki/Chess for more details
 -- We only consider the situation where there is only a single
 -- piece on the board
@@ -22,19 +25,73 @@ data Piece =
 
 isLegalPosition :: Position -> Bool
 -- implement isLegalPosition
-isLegalPosition _ = False
-isLegalPosition (a,b) = (isLegalFile && isLegalRank) 
-isLegalPosition (_,_) = False
+isLegalPosition (a,b)
+     | isLegalRank b && isLegalFile a = True
+     | otherwise = False
 
-isLegalRank :: Char -> Bool
+isLegalFile :: File -> Bool
+isLegalFile c
+     | c >= 'a' && c <= 'h' = True
+     | otherwise = False
 
-isLegalFile :: Int -> Bool
+isLegalRank :: Rank -> Bool
+isLegalRank i
+     | i >= 1 && i <= 8 = True 
+     | otherwise = False
 
 -- see Rules - Movement for legal movements 
 
 isLegalMove :: Color -> Piece -> Position -> Position -> Bool
 -- implement isLegalMove
-isLegalMove Black King _ _ = True
-isLegalMove _     _    _ _ = False
+isLegalMove _ King (a,b) (c,d) = 
+	if abs((ord a) - (ord c)) <= 1 && abs(b-d) <= 1 
+		&& isLegalPosition  (c,d)
+		then True
+		else False
 
+isLegalMove _ Queen (a,b) (c,d) =
+	if abs((ord a) - (ord c)) ==0 && abs(b - d)>=1 && isLegalPosition(c,d)
+		then True
+		else if abs((ord a)-(ord c)) >=1 && abs(b-d) ==0 && isLegalPosition(c,d)
+			then True
+			else if abs((ord a) - (ord c)) == abs(b-d) && abs(b-d)/=0 && isLegalPosition(c,d)			
+				then True
+				else False
 
+isLegalMove _ Bishop (a,b) (c,d) =
+	if abs((ord a)) - (ord c) == abs(b-d) && abs(b-d)/=0 && isLegalPosition(c,d)
+		then True
+		else False
+
+isLegalMove _ Rook (a,b) (c,d) =
+	if abs((ord a)-(ord c)) /=0 && abs(b-d) ==0 && isLegalPosition (c,d)
+		then True
+		else if abs((ord a)-(ord c)) ==0 && abs(b-d)/=0 && isLegalPosition(c,d)
+			then True
+			else False
+
+isLegalMove Black Pawn (a,b) (c,d) =
+	if abs((ord a)-(ord c))==0 && b - d == 1 && isLegalPosition(c,d)
+		then True
+		else if abs((ord a)-(ord c))==0 && b - d == 2 && b == 7 && isLegalPosition(c,d)
+			then True
+			else False
+
+isLegalMove White Pawn (a,b) (c,d) =
+	if abs((ord a)-(ord c))==0 && d - b == 1 && isLegalPosition(c,d)
+		then True
+		else if abs((ord a)-(ord c))==0 && d - b == 2 && b==2 && isLegalPosition(c,d)
+			then True
+			else False
+
+isLegalMove _ Knight (a,b) (c,d) =
+	if abs((ord a)-(ord c))==1 && abs(b-d)==2 && isLegalPosition(c,d)
+		then True
+		else if abs((ord a)-(ord c))==2 && abs(b-d) == 1 && isLegalPosition(c,d)
+			then True
+			else False 
+
+isLegalMove _ _ _ _ = False
+
+doesStuff :: Char->Int
+doesStuff a = ord a
