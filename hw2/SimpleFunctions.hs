@@ -25,14 +25,15 @@ split [a]       = ([a], [])
 --    where (as, bs) = split abs
 -- this works but there is probs a cooler way
 
-split a = (map ((!!) a) [0,2..(length a - 1)],
-           map ((!!) a) [1,3..(length a - 1)])
+split a = (map ((!!) a)[0,2..(length a - 1)],map ((!!) a)[1,3..(length a - 1)])
 --cooler? ...idk
 
 
 -- d)
---interleave :: ([a],[a]) -> [a]
---
+interleave :: ([a],[a]) -> [a]
+interleave ([], [])  = []
+interleave ([a], []) = [a]
+
 ---- e)
 --merge :: (Ord a) => ([a],[a]) -> [a]
 --
