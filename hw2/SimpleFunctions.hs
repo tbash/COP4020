@@ -31,8 +31,11 @@ split a = (map ((!!) a)[0,2..(length a - 1)],map ((!!) a)[1,3..(length a - 1)])
 
 -- d)
 interleave :: ([a],[a]) -> [a]
-interleave ([], [])  = []
-interleave ([a], []) = [a]
+interleave ([], a)  = a
+interleave (a, []) = a
+interleave (x:xs, y:ys) = x : y : interleave (xs, ys)
+
+-- (map ((!!) a)[0,2..(length a - 1)],map ((!!) a)[1,3..(length a - 1)])
 
 ---- e)
 --merge :: (Ord a) => ([a],[a]) -> [a]
