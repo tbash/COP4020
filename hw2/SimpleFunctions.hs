@@ -31,8 +31,8 @@ split (a:b:abs) = (a:as, b:bs)
 
 -- d)
 interleave :: ([a],[a]) -> [a]
-interleave ([], a)  = a
-interleave (a, []) = a
+interleave ([], a)      = a
+interleave (a, [])      = a
 interleave (a:as, b:bs) = a : b : interleave (as, bs)
 
 -- e)
@@ -45,9 +45,9 @@ merge (a:as, b:bs)
 
 -- f)
 mergeSort :: (Ord a) => [a] -> [a]
-mergeSort [] = []
+mergeSort []  = []
 mergeSort [a] = [a]
-mergeSort a  =
+mergeSort a   =
     merge ((mergeSort as), (mergeSort bs))
     where (as, bs) = split a
 
