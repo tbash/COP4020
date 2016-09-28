@@ -1,8 +1,5 @@
 module SimpleFunctions where
 
-import Data.List
-import System.IO
-
 -- a)
 filterFirst :: (a -> Bool) -> [a] -> [a]
 filterFirst _ [] = []
