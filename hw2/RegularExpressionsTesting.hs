@@ -15,7 +15,7 @@ test_option_1 =
   TestCase (assertEqual "option test 1" (True) ( option (char 'a') "a" ) )
 
 test_option_2 =
-  TestCase (assertEqual "option test 2" (True) ( option (char 'a' <*> char 'b') "ab" ) )
+  TestCase (assertEqual "option test 2" (True) ( option (char 'a' <.> char 'b') "ab" ) )
 
 test_option_3 =
   TestCase (assertEqual "option test 3" (False) ( option (char 'b') "bb" ) )
@@ -26,13 +26,13 @@ test_plus_0 =
   TestCase (assertEqual "plus test 0" (False) ( plus (char 'a') "" ) )
             
 test_plus_1 =
-  TestCase (assertEqual "plus test 1" (True) ( plus (char 'a' ||| char 'b') "b" ) )
+  TestCase (assertEqual "plus test 1" (True) ( plus (char 'a' <|> char 'b') "b" ) )
 
 test_plus_2 =
-  TestCase (assertEqual "plus test 2" (True) ( plus (char 'a' ||| char 'b') "ba" ) )
+  TestCase (assertEqual "plus test 2" (True) ( plus (char 'a' <|> char 'b') "ba" ) )
 
 test_plus_3 =
-  TestCase (assertEqual "plus test 3" (True) ( plus (char 'a' <*> char 'b') "ababab" ) )
+  TestCase (assertEqual "plus test 3" (True) ( plus (char 'a' <.> char 'b') "ababab" ) )
  
 -- tests for number (string of digits)
 
