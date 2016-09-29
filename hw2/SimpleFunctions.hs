@@ -28,9 +28,9 @@ split (a:b:abs) = (a:as, b:bs)
 
 -- d)
 interleave :: ([a],[a]) -> [a]
-interleave ([], a)      = a
-interleave (a, [])      = a
-interleave (a:as, b:bs) = a : b : interleave (as, bs)
+interleave ([], a)   = a
+interleave (a, [])   = a
+interleave (a:as, b) = a : interleave (b, as)
 
 -- e)
 merge :: (Ord a) => ([a],[a]) -> [a]
