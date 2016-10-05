@@ -42,6 +42,7 @@ b = char 'b'
 
 -- put your solutions here
 
+-- a)
 -- option
 
 option :: RegExp -> RegExp
@@ -51,12 +52,30 @@ option e = epsilon <|> e
 
 plus :: RegExp -> RegExp
 plus e = e <.> star e
+-- b)
+-- range - helper function as suggested in the book
+range :: Char -> Char -> RegExp
+range a b
+    | xs == []  = char x
+    | otherwise = char x <|> (range (head xs) (last xs))
+  where
+    x:xs = [a..b]
 
 -- number
 
---number :: RegExp
+zero = char '0'
+
+number :: RegExp
+number = zero <|> (range '1' '9' <.> star(range '0' '9'))
 
 -- fractional number
 
---fractional :: RegExp
+-- required separator - decimal point
+point = char '.'
+
+-- decimal place values after the point
+place = (star(range '0' '9') <.> range '1' '9') <|> zero
+
+fractional :: RegExp
+fractional = number <.> point <.> place
 
