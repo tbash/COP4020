@@ -14,7 +14,7 @@ char :: Char -> RegExp
 char c = (== [c])
 
 (<|>) :: RegExp -> RegExp -> RegExp
-(<|>) e1 e2 = \s -> e1 s || e2 s 
+(<|>) e1 e2 = \s -> e1 s || e2 s
 
 splits :: [a] -> [([a],[a])]
 splits xs = map (flip splitAt xs) [0..length xs]
@@ -45,16 +45,18 @@ b = char 'b'
 -- option
 
 option :: RegExp -> RegExp
+option e = epsilon <|> e
 
 -- plus
 
 plus :: RegExp -> RegExp
+plus e = e <.> star e
 
 -- number
 
-number :: RegExp
+--number :: RegExp
 
 -- fractional number
 
-fractional :: RegExp
+--fractional :: RegExp
 
