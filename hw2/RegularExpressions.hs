@@ -1,3 +1,7 @@
+----
+-- Authored By: Timothy Ashley, Damian Suski, Marcy Yi, Dax Tubach
+----
+
 module RegularExpressions where
 
 -- regular expression
@@ -74,6 +78,7 @@ number = zero <|> (range '1' '9' <.> star(range '0' '9'))
 point = char '.'
 
 -- decimal place values after the point
+place :: RegExp
 place = (star(range '0' '9') <.> range '1' '9') <|> zero
 
 fractional :: RegExp

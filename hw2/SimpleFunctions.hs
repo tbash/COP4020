@@ -1,3 +1,7 @@
+----
+-- Authored By: Timothy Ashley, Damian Suski, Marcy Yi, Dax Tubach
+----
+
 module SimpleFunctions where
 
 -- a)
