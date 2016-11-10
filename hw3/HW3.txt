@@ -8,12 +8,12 @@ Implement the function
 
 nTimes :: Integer -> Parse a b -> Parse a [b]
 
-so that nTimes n p recognizes n of the objects recognized by 
+so that nTimes n p recognizes n of the objects recognized by
 the parser p.
 
 This problem is exercise 17.11 of the book "Haskell - the craft
 of functional programming".  I have already solved exercise 17.10;
-check out the code in Parser.hs following the comment 
+check out the code in Parser.hs following the comment
 "-- begin: helper parsing functions" to help you solve this problem.
 
 
@@ -35,12 +35,12 @@ spotWhile isDigit "abc234" == [([],"abc234")]
 Problem 3:
 ----------
 
-Modify the function 
+Modify the function
 
-parser :: Parser Char Expr 
+parser :: Parser Char Expr
 
-defined in the file ExpressionsParser.hs so that the whitespace characters 
-space and tab can be used in expressions, but are ignored on parsing. 
+defined in the file ExpressionsParser.hs so that the whitespace characters
+space and tab can be used in expressions, but are ignored on parsing.
 (Hint: there is a simple pre-processor which does the trick!)
 
 This is exercise 17.18.
@@ -53,12 +53,12 @@ You have to modify the two files:
 
 - Parser.hs            (Problem 1 and 2)
 
-  Add your solutions above the comment "-- end: helper parsing functions".  
+  Add your solutions above the comment "-- end: helper parsing functions".
 
 - ExpressionsParser.hs (Problem 3)
 
-  Modify directly the parser function.  You may want to add the 
-  pre-processing function outside the modified parser function. 
+  Modify directly the parser function.  You may want to add the
+  pre-processing function outside the modified parser function.
 
 Make sure that you run the tests.
 
