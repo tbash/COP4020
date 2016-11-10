@@ -1,6 +1,6 @@
 -- this is based on 17.5 "Case study: parsing expressions"
 -- of the book "Haskell - the craft of functional programming"
--- (Third Edition) by Simon Thompson 
+-- (Third Edition) by Simon Thompson
 
 module Parser where
 
@@ -20,7 +20,7 @@ token :: Eq a => a -> Parse a a
 token t = spot (==t)
 
 spot :: (a -> Bool) -> Parse a a
-spot p (x:xs) 
+spot p (x:xs)
   | p x       = [(x,xs)]
   | otherwise = []
 spot p []     = []
@@ -31,7 +31,7 @@ alt p1 p2 inp = p1 inp ++ p2 inp
 (>*>) :: Parse a b -> Parse a c -> Parse a (b,c)
 (>*>) p1 p2 inp
   = [((y,z),rem2) | (y,rem1) <- p1 inp, (z,rem2) <- p2 rem1]
- 
+
 build :: Parse a b -> (b -> c) -> Parse a c
 build p f inp = [(f x, rem) | (x,rem) <- p inp]
 
@@ -41,14 +41,14 @@ list p = (succeed []) `alt` ((p >*> list p) `build` (uncurry (:)))
 -- end: major parsing functions
 
 -- begin: helper parsing functions
--- this is the solution to Exercise 17.10 on page 437 
+-- this is the solution to Exercise 17.10 on page 437
 
 neList :: Parse a b -> Parse a [b]
 neList p = (p >*> list p) `build` (\(x,xs) -> x:xs) -- could also use
                                                     -- uncurry (:)
 
 optional :: Parse a b -> Parse a [b]
-optional p = (succeed []) `alt` (p `build` (\x -> [x])) 
+optional p = (succeed []) `alt` (p `build` (\x -> [x]))
 
 -- end: helper parsing functions
 
@@ -59,9 +59,17 @@ isDigit c = c `elem` ['0'..'9']
 -- top-level parser
 
 topLevel :: Parse a b -> [a] -> b
-topLevel p inp 
-  = case results of 
+topLevel p inp
+  = case results of
     [] -> error "parsing error"
     _  -> head results
     where
-    results = [ found | (found,[]) <- p inp] 
+    results = [ found | (found,[]) <- p inp]
+  where
+    results = [ found | (found,[]) <- p inp]
+nTimes :: Integer -> Parse a b -> Parse a [b]
+nTimes 0 p = succeed []
+nTimes n p = (p >*> nTimes (n - 1) p) `build` (\(x, xs) -> x:xs)
+
+spotWhile :: (a -> Bool) -> Parse a [a]
+spotWhile p a = [last $ list (spot p) a]
