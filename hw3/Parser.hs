@@ -63,10 +63,9 @@ topLevel p inp
   = case results of
     [] -> error "parsing error"
     _  -> head results
-    where
-    results = [ found | (found,[]) <- p inp]
   where
     results = [ found | (found,[]) <- p inp]
+
 nTimes :: Integer -> Parse a b -> Parse a [b]
 nTimes 0 p = succeed []
 nTimes n p = (p >*> nTimes (n - 1) p) `build` (\(x, xs) -> x:xs)
