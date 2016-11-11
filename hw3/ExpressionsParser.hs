@@ -3,8 +3,11 @@ module ExpressionsParser where
 import Parser
 import Expressions
 
-parser :: Parse Char Expr
-parser = litParse `alt` varParse `alt` opExpParse
+parser:: String -> [(Expr,[Char])]
+parser list = parserActual (filter(/= ' ') list)
+
+parserActual :: Parse Char Expr
+parserActual = litParse `alt` varParse `alt` opExpParse
 
 opExpParse :: Parse Char Expr
 opExpParse
