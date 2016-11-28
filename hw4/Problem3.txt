@@ -1,0 +1,64 @@
+Problem 3:
+----------
+
+a) Give 5 examples of Haskell classes (for instance, Eq).
+
+1. `Ord`
+2. `Show`
+3. `Read`
+4. `Num`
+5. `Enum`
+
+b) Give the signature of the functions (>>=) and return in the class definition of a monad.
+
+(>>=): Bind operator signature: `(>>=) :: (Monad m) => m a -> (a -> m b) -> m b `
+
+return operator, lifts value into monad: `return :: a -> m a`
+
+c) Give the kind of the type constructor Either and of the partially applied type constructor Either Int.
+
+kind of `Either`: `Either :: * -> * -> *`
+Fully polymorphic enhanced Maybe Monad
+
+kind of `Either Int`: `Either Int :: * -> *`
+this defines the `Left` constructor but not the `Right`.
+For example, could not be applied to: `Left "text"`
+
+d) Give the type of the functions zip and the partially applied function zip "abc".
+
+type of `zip "abc"`: `zip "abc" :: [b] -> [(Char, b)]`
+Partially applied, left value in each tuple will be of type `Char`
+
+e) Give a definition of a higher-order function?
+
+Passing a function to another function as parameters. This is useful for function composition,
+smaller functions can be used to compose larger functions.
+A trivial example would be `takeWhile` this expects a function to be passed in that returns a
+boolean to filter elements in a List.
+
+f) What does it mean that a data structure is persistent?
+
+The previous version/versions of a data structure is/are perserved, actions taken
+to compute the next state of some structure can be reduced and a new structure can be
+returned. In some applications, it is possible to traverse through actions and reverse
+those to acheive a previous state, given these actions are pure functions.
+This is given when introducing immutability as the source for a data structure.
+
+g) Assume that ErrorType is some user defined type that describes errors that can occur in computations.
+How would you endow Either ErrorType with a monadic structure? Give the definition of return and (>>=).
+
+
+```haskell
+-- NOTE: Best practices of Either constitute that the `Left` constructor implements the expected error type
+
+instance Monad Either ErrorType where
+
+  (>>=) (Either f) k = case f of
+      ErrorType m -> ErrorType m
+      Right  v    -> Right (k v)
+
+  return v              = Either (Right v)
+```
+
+
+
