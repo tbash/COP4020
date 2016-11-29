@@ -1,12 +1,20 @@
 module TreeLabelWithoutStateMonad where
 
 import Store
+import Data.Maybe
 
 -- label element
 
-labelValue :: Ord a => a -> (Store a Int) -> (Int, Store a Int)
+labelValue :: Ord a => a -> (Store a Int) -> (Int, Store a Int)  
 labelValue val ls =
-  (99, ls) -- replace this stub implementation by a proper implementation of labelValue
+    case lookupStore val ls of
+        Just x -> (x , ls)
+        Nothing -> updateStore val ls
+                    
+updateStore :: Ord a => a -> Store a Int ->  (Int , Store a Int)
+updateStore val' cur = 
+    let new = createNewLabel cur
+    in (new, insertStore val' new cur)
 
 -- label tree
 

@@ -7,7 +7,16 @@ import Control.Monad.State
 
 labelValue :: Ord a => a -> State (Store a Int) Int
 labelValue val = do
-  return 99 -- replace this stub implementation by a proper implementation of labelValue
+    cur <- get
+    case lookupStore val cur of
+        Just x -> return x
+        Nothing -> do
+            let temp =
+                 if createNewLabel cur > 0
+                     then createNewLabel cur
+                     else 0
+            put $ insertStore val temp cur
+            return temp
 
 -- label tree
 
