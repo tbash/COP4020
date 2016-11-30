@@ -1,3 +1,6 @@
+----
+-- Authored By: Timothy Ashley, Damian Suski, Marcy Yi, Dax Tubach
+----
 Problem 3:
 ----------
 
@@ -52,12 +55,9 @@ How would you endow Either ErrorType with a monadic structure? Give the definiti
 -- NOTE: Best practices of Either constitute that the `Left` constructor implements the expected error type
 
 instance Monad Either ErrorType where
-
-  (>>=) (Either f) k = case f of
-      ErrorType m -> ErrorType m
-      Right  v    -> Right (k v)
-
-  return v              = Either (Right v)
+    Right v >>= k        = k v
+    Left ErrorType >>= k = Left ErrorType
+    return v             = Right v
 ```
 
 

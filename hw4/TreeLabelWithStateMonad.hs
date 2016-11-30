@@ -1,3 +1,6 @@
+----
+-- Authored By: Timothy Ashley, Damian Suski, Marcy Yi, Dax Tubach
+----
 module TreeLabelWithStateMonad where
 
 import Store
